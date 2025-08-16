@@ -1,0 +1,21 @@
+Reflection on Building and Preparing to Deploy the Patch Management Tracker System
+
+Over the course of this project, I have gained extensive hands-on experience in full-stack web development, database design, and the process of deploying a working system to the cloud using Amazon Web Services (AWS). This journey—from building local functionality to preparing a live production deployment—has taught me both technical skills and important real-world problem-solving strategies.
+
+Initially, I focused on building the Patch Management Tracker system with a backend in Node.js and Express, connected to a Microsoft SQL Server database. The application implements robust role-based access control (RBAC), differentiating between admins and engineers. Admins have full CRUD access to all system resources, while engineers are scoped to their own assigned systems with limited permissions, like the ability to create and edit—but not delete—patches.
+
+One key learning moment was understanding the nuances of frontend/backend integration. For example, ensuring the frontend could dynamically render systems tied to individual users, support dropdowns for assigning clients, and enforce role limitations, required careful coordination between the UI and API responses. I also paid close attention to UI consistency, reusing layouts, and hiding tabs (e.g., Users tab) when not applicable to the logged-in user role.
+
+As I approached deployment, I started preparing the AWS environment, beginning with the database. I selected Amazon RDS for hosting SQL Server under the Free Tier. Here, I faced a few configuration challenges. Setting the right security group inbound rules was crucial—especially when trying to restrict access to the RDS instance. I attempted to allow my public IP address (e.g., 202.136.19.50/32), but AWS rejected it due to CIDR validation or security group conflicts.
+
+This made me reflect more deeply on how networking and firewall rules work in cloud environments. I had to consider the long-term need for both secure database access and web app availability to the public. While I was originally focused only on the database, I realized I also need to prepare for EC2 or other hosting services to allow external HTTP traffic for the web application frontend.
+
+I also appreciated the balance between security and accessibility. Leaving RDS open to all IPs is risky, but locking it to a dynamic IP (like mine) can cause disruptions. It became clear that using EC2 as an intermediary (backend server) with correct VPC routing is the more secure and scalable route.
+
+Through this process, I also developed greater patience and rigor. I found myself frequently checking tiny configuration mismatches, especially when things weren’t working despite the code being correct. Many of these issues came down to networking, role configuration, or subtle frontend-backend mismatches.
+
+Conclusion
+
+This project gave me a clear, end-to-end understanding of what it takes to build, secure, and prepare an enterprise-ready application for production deployment. I learned how important the backend infrastructure is—not just the code, but the database hosting, API routing, and security posture. I also realized that cloud platforms like AWS, while powerful, require careful setup and understanding of services like VPCs, EC2, RDS, and IAM.
+
+Moving forward, I feel much more confident in deploying cloud-based solutions and can see myself building more scalable and secure applications. This project pushed me beyond just coding—it helped me think like a system architect, balancing usability, security, and scalability.
